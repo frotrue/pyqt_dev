@@ -205,47 +205,39 @@ class ResultTab(QWidget):
         self.setFixedSize(800, 480)
         main_layout = QHBoxLayout()
 
-        # 왼쪽: 결과 리스트
-        self.result_list = QListWidget()
-        self.result_list.setFixedWidth(200)
-        self.result_list.itemClicked.connect(self.show_result_detail)
-        main_layout.addWidget(self.result_list)
-
-        # 오른쪽 전체 영역 (이미지 + 텍스트 + 버튼 포함)
+        # 🔹 오른쪽으로 이동시키기 위해, 오른쪽부터 구성
         right_layout = QVBoxLayout()
 
-        # 상단: 이미지 + 버튼 나란히 배치
+        # 상단: 이미지 + 버튼
         top_layout = QHBoxLayout()
-
-        # 이미지 미리보기 (가로폭을 줄임)
         self.detail_label = QLabel("결과를 선택해 주세요.")
-        self.detail_label.setFixedSize(480, 240)  # 580 → 480
+        self.detail_label.setFixedSize(480, 240)
         self.detail_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.detail_label.setStyleSheet("background-color: #222; color: white;")
 
-        # 📧 이메일 버튼 (이미지 오른쪽에 위치)
         self.email_button = QPushButton("📧 이메일로 전송")
         self.email_button.setFixedSize(80, 40)
         self.email_button.clicked.connect(self.send_email)
 
-        # 배치: [이미지][버튼]
         top_layout.addWidget(self.detail_label)
         top_layout.addWidget(self.email_button, alignment=Qt.AlignmentFlag.AlignVCenter)
-
         right_layout.addLayout(top_layout)
 
-        # 하단: 텍스트 결과창
+        # 하단: 텍스트
         self.detail_text = QTextEdit()
         self.detail_text.setReadOnly(True)
         right_layout.addWidget(self.detail_text)
 
+        # 🔹 왼쪽 리스트 → 오른쪽으로 이동
+        self.result_list = QListWidget()
+        self.result_list.setFixedWidth(200)
+        self.result_list.itemClicked.connect(self.show_result_detail)
+
+        # 🔹 기존: main_layout.addWidget(self.result_list) → 위치 변경
         main_layout.addLayout(right_layout)
+        main_layout.addWidget(self.result_list)  # 오른쪽으로 이동
+
         self.setLayout(main_layout)
-
-        # 현재 선택된 항목 데이터 저장용
-        self.current_img_path = None
-        self.current_text = ""
-
     def add_result_item(self, img_path, result_str):
         item = QListWidgetItem(os.path.basename(img_path))
         item.setData(Qt.ItemDataRole.UserRole, img_path)
@@ -336,7 +328,7 @@ class MainApp(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("라즈베리파이 추론 GUI")
-        self.setFixedSize(800, 480)  # 🔹 메인 창 크기 변경
+        self.setFixedSize(800, 480)
 
         self.result_tab = ResultTab()
         self.camera_tab = CameraTab(self.result_tab)
@@ -347,7 +339,11 @@ class MainApp(QWidget):
         tabs.addTab(self.result_tab, "결과")
         tabs.addTab(self.settings_tab, "설정")
 
-        layout = QVBoxLayout()
+        # 🔹 탭 버튼을 오른쪽에 배치
+        tabs.setTabPosition(QTabWidget.TabPosition.East)
+
+        # 🔹 가로 배치로 설정 (탭이 오른쪽으로 가게)
+        layout = QHBoxLayout()
         layout.addWidget(tabs)
         self.setLayout(layout)
 
