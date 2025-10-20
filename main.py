@@ -165,7 +165,7 @@ class CameraTab(QWidget):
         # YOLO 추론 (실제 환경에서는 모델 파일이 존재해야 함)
         try:
             model = YOLO("9_21.pt")
-            results = model(self.current_image, save=False, conf=0.7)
+            results = model(self.current_image, save=False, conf=0.5)
         except Exception as e:
             self.video_label.setText(f"YOLO 추론 오류: {e}")
             return # 오류 발생 시 중단
