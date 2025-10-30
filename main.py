@@ -187,7 +187,11 @@ class CameraTab(QWidget):
                     result_str += f"{cls_name}: {conf:.2f}\n"
 
         # GPT 응답 생성
-        temp = gpt_ans.get_gpt_response(result_str)
+        try:
+            temp = gpt_ans.get_gpt_response(result_str)
+
+        except Exception as e:
+            temp = "인터넷 연결을 해주세요"
 
         # 최종 결과 텍스트 (GPT + YOLO)
         final_result_text = f"{temp}\n\n--- YOLOv8 결과 ---\n{result_str}"
