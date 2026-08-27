@@ -66,6 +66,19 @@ PyQt6 기반 데스크톱 인터페이스에서 건축물 이미지를 불러오
 
 이 분석은 프로토타입의 보조 판단 단계이며, 실제 건축물의 구조안전진단이나 전문가 검사를 대체하지 않습니다.
 
+## 모델 학습 코드
+
+대회 당시 YOLOv8 학습 과정에 사용된 코드는 [`training/`](training/) 디렉터리에 아카이브했습니다.
+
+- [`training/train_yolov8.py`](training/train_yolov8.py) — `yolov8s-seg.pt` 기반 학습 스크립트
+- [`training/README.md`](training/README.md) — 학습 설정과 원본 코드 출처 설명
+
+아카이브된 코드에는 300 epochs, batch size 16, image size 768, AdamW, learning rate `0.0001` 등의 당시 학습 설정이 남아 있습니다.
+
+이 파일은 2026-08-27에 새로 학습 로직을 작성한 것이 아니라, 2025년 개발 저장소 [`frotrue/smart_crack_detection`](https://github.com/frotrue/smart_crack_detection)에 보존되어 있던 학습 코드를 문서화 목적으로 복사한 것입니다. 과거 커밋 이력은 수정하거나 재작성하지 않았습니다.
+
+또한 현재 보존된 자료만으로는 최종 UI가 사용하는 `9_21.pt`가 이 아카이브 스크립트의 특정 실행에서 직접 생성된 체크포인트라고 단정하지 않습니다. 자세한 내용은 [`training/README.md`](training/README.md)를 참고하세요.
+
 ## 기술 스택
 
 - Python 3.11+
@@ -114,10 +127,11 @@ uv run main.py
 ### 문서 정리 기록
 
 - **2026-08-27:** 최종 UI 저장소임을 명확히 하고 포트폴리오/증빙 자료로 활용하기 쉽도록 한국어·영어 README를 재정리했습니다. 이 과정에서 2025년 프로젝트 코드나 과거 커밋 이력은 수정하지 않았습니다.
+- **2026-08-27:** 기존 개발 저장소에 남아 있던 YOLOv8 학습 스크립트를 `training/` 디렉터리에 출처를 명시해 아카이브했습니다.
 
 ## 관련 저장소
 
-YOLO 학습 코드와 더 단순한 초기 애플리케이션 흐름은 아래 저장소에 보존되어 있습니다.
+YOLO 학습 코드와 더 단순한 초기 애플리케이션 흐름의 원본 기록은 아래 저장소에도 보존되어 있습니다.
 
 - [frotrue/smart_crack_detection](https://github.com/frotrue/smart_crack_detection)
 
