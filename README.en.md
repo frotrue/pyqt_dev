@@ -100,8 +100,8 @@ The material currently preserved is also not sufficient to claim that the final 
 ### Setup
 
 ```bash
-git clone https://github.com/frotrue/pyqt_dev.git
-cd pyqt_dev
+git clone https://github.com/frotrue/smart-crack-detector.git
+cd smart-crack-detector
 uv sync --frozen
 ```
 
@@ -130,6 +130,7 @@ The project code and UI changes from 2025 remain preserved in Git history. Later
 - **2026-08-27:** Reorganized Korean/English documentation for the final UI repository. No historical project code or commit history was rewritten.
 - **2026-08-27:** Archived the YOLOv8 training script from the earlier development repository under `training/` with explicit provenance notes.
 - **2026-08-27:** Updated documentation to use the actual project name, **Smart Crack Detector**.
+- **2026-08-27:** Renamed the repository from `pyqt_dev` to `smart-crack-detector` and updated the clone URL and local directory name in the setup instructions.
 
 ## Related Repository
 
