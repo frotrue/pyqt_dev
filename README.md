@@ -100,8 +100,8 @@ PyQt6 기반 데스크톱 인터페이스에서 건축물 이미지를 불러오
 ### 설치
 
 ```bash
-git clone https://github.com/frotrue/pyqt_dev.git
-cd pyqt_dev
+git clone https://github.com/frotrue/smart-crack-detector.git
+cd smart-crack-detector
 uv sync --frozen
 ```
 
@@ -130,6 +130,7 @@ uv run main.py
 - **2026-08-27:** 최종 UI 저장소임을 명확히 하고 포트폴리오/증빙 자료로 활용하기 쉽도록 한국어·영어 README를 재정리했습니다. 이 과정에서 2025년 프로젝트 코드나 과거 커밋 이력은 수정하지 않았습니다.
 - **2026-08-27:** 기존 개발 저장소에 남아 있던 YOLOv8 학습 스크립트를 `training/` 디렉터리에 출처를 명시해 아카이브했습니다.
 - **2026-08-27:** 실제 프로젝트명인 **「스마트 크랙 탐지기 (Smart Crack Detector)」**에 맞춰 문서의 프로젝트 표기를 정리했습니다.
+- **2026-08-27:** 저장소 이름을 `pyqt_dev`에서 `smart-crack-detector`로 변경하고 설치 안내의 저장소 주소와 디렉터리명을 갱신했습니다.
 
 ## 관련 저장소
 
