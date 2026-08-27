@@ -1,12 +1,13 @@
-# Smart Crack Detection — Final UI Version
+# Smart Crack Detector — Final UI Version
 
 [한국어](README.md) | **English**
 
-This repository contains the **final UI/integration revision** of the Smart Crack Detection project developed around the 2025 AI Hackathon competition **"경기창고"**.
+This repository contains the **final UI/integration revision** of the **Smart Crack Detector** project developed around the 2025 AI Hackathon competition **"경기창고"**.
 
 The application provides a PyQt6 desktop interface for loading or capturing building images, running a trained YOLOv8 model, reviewing detected defects, and generating a secondary risk assessment with an OpenAI model.
 
 > **Award:** Excellence Award, 2025 AI Hackathon Competition "경기창고"  
+> **Project name:** Smart Crack Detector  
 > **Awarding organization:** Advanced Institute of Convergence Technology
 
 ## Project Scope
@@ -128,6 +129,7 @@ The project code and UI changes from 2025 remain preserved in Git history. Later
 
 - **2026-08-27:** Reorganized Korean/English documentation for the final UI repository. No historical project code or commit history was rewritten.
 - **2026-08-27:** Archived the YOLOv8 training script from the earlier development repository under `training/` with explicit provenance notes.
+- **2026-08-27:** Updated documentation to use the actual project name, **Smart Crack Detector**.
 
 ## Related Repository
 
