@@ -1,37 +1,126 @@
-# smart_carck_detection
-A YOLO-based application that predicts the risk of structural collapse in buildings using images.
+# Smart Crack Detection — 최종 UI 버전
 
-<br>
+**한국어** | [English](README.en.md)
 
-# Requirements
-- Python 3.11
-- A `GPT-4.1 mini`-compatible environment
-- A valid `OPENAI_API_KEY` set as an environment variable
-- Recommended: `uv` for package management
+이 저장소는 2025년 AI 해커톤 경진대회 **「경기창고」** 프로젝트의 **최종 UI/통합 변경본**을 보관하고 있습니다.
 
-<br>
+PyQt6 기반 데스크톱 인터페이스에서 건축물 이미지를 불러오거나 카메라로 촬영한 뒤, 학습된 YOLOv8 모델로 손상 부위를 탐지하고, 탐지 결과를 기반으로 OpenAI 모델을 이용한 2차 위험도 분석까지 수행하는 프로토타입입니다.
 
-# 📦 Installation & Setup
-⚠️ Make sure the OPENAI_API_KEY is registered as an environment variable. This project uses GPT-4.1 mini.
+> **수상:** 2025년 AI 해커톤 경진대회 「경기창고」 우수상  
+> **수여기관:** 차세대융합기술연구원
 
-⚠️ It is recommended to install packages using uv for faster and more reliable setup.
+## 프로젝트 범위
 
+이 저장소는 프로젝트의 **최종 데스크톱 UI와 추론 흐름**에 초점을 두고 있습니다.
 
-```
+현재 애플리케이션에서 다루는 손상 클래스는 다음과 같습니다.
+
+- `crack` — 균열
+- `corrosion` — 부식
+- `ExposedRebars` — 철근 노출
+- `spalling` — 박리
+
+전체 동작 흐름은 다음과 같습니다.
+
+1. 로컬 이미지를 업로드하거나 카메라로 이미지를 촬영합니다.
+2. 학습된 YOLOv8 모델(`9_21.pt`)로 추론합니다.
+3. 탐지된 손상과 confidence 값을 시각화합니다.
+4. 탐지 결과 요약을 GPT 분석 모듈에 전달합니다.
+5. 분석 이미지와 결과 텍스트를 저장합니다.
+6. 결과 탭에서 이전 분석 결과를 다시 확인할 수 있습니다.
+
+## 주요 UI 기능
+
+### 입력 탭
+
+- 카메라 ON/OFF
+- 카메라 촬영
+- 로컬 이미지 업로드
+- YOLO 추론 실행
+
+### 결과 탭
+
+- 탐지 결과 목록
+- 결과 이미지 미리보기
+- GPT 기반 위험도 및 조치사항 분석
+- 이메일 전송 기능
+
+### 설정 탭
+
+- 모델 경로 선택 UI
+- 저장 경로 설정 UI
+
+> 이 프로젝트는 해커톤용 프로토타입입니다. 현재 코드에서는 일부 설정 UI가 모든 추론 경로에 완전히 연결되어 있지 않을 수 있습니다.
+
+## AI 처리 흐름
+
+### YOLO 추론
+
+애플리케이션은 Ultralytics YOLO를 통해 `9_21.pt` 모델을 불러오고, confidence threshold `0.5`를 기준으로 추론합니다.
+
+탐지된 클래스와 confidence 값은 결과 이미지와 함께 저장됩니다.
+
+### 2차 위험도 분석
+
+`gpt_ans.py`에서는 YOLO 탐지 결과를 요약해 OpenAI 모델(`gpt-4.1-nano`)에 전달하고, 건축물 위험도와 권장 조치사항을 생성합니다.
+
+이 분석은 프로토타입의 보조 판단 단계이며, 실제 건축물의 구조안전진단이나 전문가 검사를 대체하지 않습니다.
+
+## 기술 스택
+
+- Python 3.11+
+- PyQt6
+- Ultralytics YOLOv8
+- OpenCV
+- OpenAI API
+- `uv`
+
+## 설치 및 실행
+
+### 요구사항
+
+- Python 3.11 이상
+- 유효한 `OPENAI_API_KEY`
+- 권장: [`uv`](https://docs.astral.sh/uv/)
+
+### 설치
+
+```bash
 git clone https://github.com/frotrue/pyqt_dev.git
 cd pyqt_dev
 uv sync --frozen
 ```
 
-<br>
+애플리케이션 실행 전 OpenAI API 키를 환경변수로 등록해야 합니다.
 
-# Usage
+```bash
+# Windows PowerShell
+$env:OPENAI_API_KEY="YOUR_API_KEY"
+
+# Linux / macOS
+export OPENAI_API_KEY="YOUR_API_KEY"
 ```
+
+### 실행
+
+```bash
 uv run main.py
 ```
 
-1. Click the `Open Img` to load a photo.
-2. The trained YOLO model performs inference on the image.
-3. Click the `Send Result` to submit predictions to ChatGPT for analysis and action suggestions.
+## 저장소 기록
 
-<br>
+2025년에 작성된 프로젝트 코드와 UI 변경 이력은 Git 히스토리에 그대로 보존되어 있습니다. 이후 문서 정리는 당시 구현과 구분되도록 별도 커밋으로 남기며, 과거 커밋이나 코드 이력을 다시 작성하지 않습니다.
+
+### 문서 정리 기록
+
+- **2026-08-27:** 최종 UI 저장소임을 명확히 하고 포트폴리오/증빙 자료로 활용하기 쉽도록 한국어·영어 README를 재정리했습니다. 이 과정에서 2025년 프로젝트 코드나 과거 커밋 이력은 수정하지 않았습니다.
+
+## 관련 저장소
+
+YOLO 학습 코드와 더 단순한 초기 애플리케이션 흐름은 아래 저장소에 보존되어 있습니다.
+
+- [frotrue/smart_crack_detection](https://github.com/frotrue/smart_crack_detection)
+
+## 주의사항
+
+이 저장소는 해커톤을 위해 제작한 실험적 프로토타입입니다. 탐지 결과와 생성된 위험도 분석은 실제 건축물에 대한 전문 구조안전진단, 공학적 판단 또는 공식 검사를 대체하지 않습니다.
